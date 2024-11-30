@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product/core/route/routes.dart';
+import 'package:product/core/service/local_notification_service.dart';
 import 'package:product/core/service/navigation_service.dart';
 import 'package:product/core/service/service_locator.dart';
 import 'package:product/product_detail/domain/model/cart_model.dart';
@@ -18,6 +19,8 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
+  final TextEditingController _message = TextEditingController();
   @override
   void initState() {
     getIt<ProductDetailCubit>().getDetail();
@@ -105,6 +108,96 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               );
             }
           },
+        ),
+      ),
+      floatingActionButton: InkWell(
+        onTap: () async {
+          showDialog(
+            context: context,
+            builder: (context) => Dialog(
+              insetPadding: EdgeInsets.symmetric(
+                vertical: 30.h,
+                horizontal: 20.w,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              child: Form(
+                key: _globalKey,
+                child: Container(
+                  padding: EdgeInsets.all(10.w),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TextFormField(
+                        controller: _message,
+                        maxLines: 4,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your message';
+                          } else {
+                            return null;
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: "Enter your message",
+                          helperStyle:
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                    color: Colors.grey.shade500,
+                                  ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.r),
+                          ),
+                        ),
+                      ),
+                      20.verticalSpace,
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: InkWell(
+                          onTap: () async {
+                            if (_globalKey.currentState!.validate()) {
+                              await NotificationService().showNotification();
+                              _message.clear();
+                              getIt<NavigationService>().goBack();
+                            }
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20.w, vertical: 10.w),
+                            decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(8.r),
+                                border: Border.all(color: Colors.black)),
+                            child: Text(
+                              "Submit",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+        child: Container(
+          margin: EdgeInsets.only(bottom: 10.h),
+          padding: EdgeInsets.all(15.w),
+          decoration: const BoxDecoration(
+            color: Colors.blue,
+            shape: BoxShape.circle,
+          ),
+          child: InkWell(
+            child: Icon(
+              Icons.message_rounded,
+              size: 32.w,
+            ),
+          ),
         ),
       ),
     );

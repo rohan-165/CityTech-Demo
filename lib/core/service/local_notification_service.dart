@@ -52,9 +52,7 @@ class NotificationService {
     }
   }
 
-  Future<void> showNotification({
-    required String title,
-  }) async {
+  Future<void> showNotification() async {
     try {
       const AndroidNotificationDetails androidDetails =
           AndroidNotificationDetails(
@@ -71,7 +69,7 @@ class NotificationService {
 
       await flutterLocalNotificationsPlugin.show(
         0, // Notification ID
-        title, // Title
+        "Message Sent", // Title
         "Thank you for Contacting Us.", // Body
         notificationDetails,
         payload: 'custom_payload', // Additional data

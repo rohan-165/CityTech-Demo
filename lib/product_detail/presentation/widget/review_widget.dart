@@ -5,14 +5,14 @@ import 'package:product/product_detail/presentation/cubit/review_rating_cubit.da
 
 import 'package:product/product_detail/presentation/widget/background_container.dart';
 
-class MessageWidget extends StatefulWidget {
-  const MessageWidget({super.key});
+class ReviewWidget extends StatefulWidget {
+  const ReviewWidget({super.key});
 
   @override
-  State<MessageWidget> createState() => _MessageWidgetState();
+  State<ReviewWidget> createState() => _ReviewWidgetState();
 }
 
-class _MessageWidgetState extends State<MessageWidget> {
+class _ReviewWidgetState extends State<ReviewWidget> {
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
   final TextEditingController _name = TextEditingController();
   final TextEditingController _comment = TextEditingController();

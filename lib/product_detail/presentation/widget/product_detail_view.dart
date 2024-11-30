@@ -7,7 +7,7 @@ import 'package:product/product_detail/presentation/cubit/select_color_cubit.dar
 import 'package:product/product_detail/presentation/widget/add_cart_widget.dart';
 import 'package:product/product_detail/presentation/widget/background_container.dart';
 import 'package:product/product_detail/presentation/widget/glass_effect.dart';
-import 'package:product/product_detail/presentation/widget/message_widget.dart';
+import 'package:product/product_detail/presentation/widget/review_widget.dart';
 import 'package:product/product_detail/presentation/widget/review_rating.dart';
 
 class ProductDetailView extends StatefulWidget {
@@ -331,7 +331,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
           20.verticalSpace,
           const ReviewRating(),
           40.verticalSpace,
-          const MessageWidget(),
+          const ReviewWidget(),
           40.verticalSpace,
         ],
       ),
