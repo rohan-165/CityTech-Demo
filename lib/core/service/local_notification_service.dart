@@ -52,7 +52,7 @@ class NotificationService {
     }
   }
 
-  Future<void> showNotification() async {
+  Future<void> showNotification({required String amount}) async {
     try {
       const AndroidNotificationDetails androidDetails =
           AndroidNotificationDetails(
@@ -69,8 +69,8 @@ class NotificationService {
 
       await flutterLocalNotificationsPlugin.show(
         0, // Notification ID
-        "Message Sent", // Title
-        "Thank you for Contacting Us.", // Body
+        "Withdrawal Alert from CITYTECH", // Title
+        "Withdrawal of $amount processed successfully. Check your account for details", // Body
         notificationDetails,
         payload: 'custom_payload', // Additional data
       );

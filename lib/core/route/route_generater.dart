@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:product/core/route/routes.dart';
-import 'package:product/product_detail/presentation/screen/cart_screen.dart';
-import 'package:product/product_detail/presentation/screen/product_detail_screen.dart';
+import 'package:product/dashboard/presentation/screen/dashboard_screen.dart';
 
 class RouteGenerator {
   RouteGenerator._();
@@ -10,21 +9,16 @@ class RouteGenerator {
     Object? argument = settings.arguments;
 
     switch (settings.name) {
-      case Routes.productDetailScreen:
+      case Routes.dashboardScreen:
         return MaterialPageRoute(
           settings: settings,
-          builder: (_) => const ProductDetailScreen(),
-        );
-      case Routes.cartScreen:
-        return MaterialPageRoute(
-          settings: settings,
-          builder: (_) => const CartScreen(),
+          builder: (_) => const DashboardScreen(),
         );
 
       default:
         return MaterialPageRoute(
           settings: settings,
-          builder: (BuildContext context) => const ProductDetailScreen(),
+          builder: (BuildContext context) => const DashboardScreen(),
         );
     }
   }
